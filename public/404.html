@@ -6,37 +6,48 @@
 
     <!--
       GitHub Pages SPA redirect script.
-      When GitHub Pages serves this 404.html for a deep-link, this script
-      re-encodes the URL as a query string and redirects to index.html.
-      index.html then restores the original path before React Router mounts.
 
-      segmentCount:
-        1  → deploying to a sub-path  (e.g. username.github.io/repo-name/)
-        0  → deploying to a root domain (e.g. username.github.io or custom domain)
+      When GitHub Pages 404s on a deep-link (e.g. /34_AGameDirector/abilities),
+      this script re-encodes the FULL pathname as a query string on the repo
+      root, then redirects to index.html which restores it before React mounts.
+
+      We encode the entire pathname (minus the leading slash) so that
+      index.html can do a simple replaceState with the full original path —
+      no string manipulation needed there.
+
+      segmentCount = 1  →  sub-path deploy (username.github.io/repo-name/)
+      segmentCount = 0  →  root domain (username.github.io or custom domain)
 
       Source: https://github.com/rafgraph/spa-github-pages
     -->
     <script>
       var segmentCount = 1;
       var l = window.location;
+
+      // The base is everything up to and including the repo segment
+      // e.g. https://moien34devmode.github.io/34_AGameDirector
+      var base = l.protocol +
+        '//' +
+        l.hostname +
+        (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + segmentCount).join('/');
+
+      // The path after the repo segment that React Router cares about
+      // e.g. for /34_AGameDirector/abilities  →  /abilities
+      var routePath = '/' + l.pathname
+        .split('/')
+        .slice(1 + segmentCount)
+        .join('/');
+
+      // Encode as query string: base/?/routePath
+      // We keep the full routePath (with leading slash) so index.html can
+      // simply prepend the base pathname and call replaceState.
       l.replace(
-        l.protocol +
-          '//' +
-          l.hostname +
-          (l.port ? ':' + l.port : '') +
-          l.pathname
-            .split('/')
-            .slice(0, 1 + segmentCount)
-            .join('/') +
-          '/?/' +
-          l.pathname
-            .slice(1)
-            .split('/')
-            .slice(segmentCount)
-            .join('/')
-            .replace(/&/g, '~and~') +
-          (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-          l.hash
+        base +
+        '/?p=' +
+        routePath.replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
       );
     </script>
   </head>
