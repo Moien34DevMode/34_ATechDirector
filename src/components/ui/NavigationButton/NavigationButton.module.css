@@ -28,7 +28,22 @@
   display: inline-block;
 }
 
-/* Active indicator — hairline underline that slides between items */
+/* ── Drawer variant — full-width button style for the mobile drawer ────── */
+
+.drawerButton {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  justify-content: flex-start;
+  font-size: var(--text-sm);
+  border-radius: var(--radius-md);
+}
+
+.drawerButton:hover {
+  background-color: var(--color-bg-surface);
+}
+
+/* ── Active indicator — hairline underline that slides between items ──── */
+
 .indicator {
   position: absolute;
   bottom: -1px; /* sits on top of the nav border */

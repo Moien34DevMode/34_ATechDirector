@@ -71,3 +71,15 @@
   opacity: 1;
   transform: translateX(3px);
 }
+
+/* ── Small mobile (< 480px) ───────────────────────────────────────── */
+
+@media (max-width: 479px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card {
+    padding: var(--space-sm) var(--space-md);
+  }
+}
