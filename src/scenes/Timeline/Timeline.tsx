@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import SceneLayout from "@layouts/SceneLayout/SceneLayout";
+import SceneNav from "@components/ui/SceneNav/SceneNav";
 import TimelineItem from "@components/timeline/TimelineItem/TimelineItem";
 import Modal from "@components/ui/Modal/Modal";
 import MarkdownRenderer from "@components/markdown/MarkdownRenderer/MarkdownRenderer";
 import LoadingOverlay from "@components/ui/LoadingOverlay/LoadingOverlay";
 import { timeline } from "@data/timeline";
 import { useMarkdown } from "@hooks/useMarkdown";
+import { staggerContainer, staggerItem } from "@theme/animations";
 import type { TimelineEntry } from "@/types/timeline.types";
 import styles from "./Timeline.module.css";
 
@@ -14,15 +17,6 @@ import styles from "./Timeline.module.css";
 //
 // Purpose: Chronological career history. Each entry can expand into a
 // full Markdown article via a Modal.
-//
-// Data flow:
-//   src/data/timeline.ts → Timeline scene → TimelineItem (display only)
-//   On entry click → Modal → MarkdownRenderer (if markdownFile present)
-//
-// Design notes (implement when ready):
-//   • Vertical or horizontal timeline layout
-//   • Category filters (role / project / milestone / education)
-//   • Year grouping headers
 // ─────────────────────────────────────────────────────────────────────────────
 
 function Timeline() {
@@ -41,7 +35,22 @@ function Timeline() {
   return (
     <SceneLayout sceneId="timeline" title="Timeline">
       <div className={styles.container}>
-        {/* Implement timeline layout here */}
+        {/* Scene header */}
+        <motion.header
+          className={styles.header}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p className={styles.eyebrow} variants={staggerItem}>
+            Career history
+          </motion.p>
+          <motion.h1 className={styles.title} variants={staggerItem}>
+            Timeline
+          </motion.h1>
+        </motion.header>
+
+        {/* Timeline list */}
         <ol className={styles.list} aria-label="Career timeline">
           {timeline.map((entry) => (
             <TimelineItem
@@ -52,9 +61,14 @@ function Timeline() {
             />
           ))}
         </ol>
+
+        {/* Navigation to other scenes */}
+        <div className={styles.navSection}>
+          <SceneNav exclude="TIMELINE" label="Continue" />
+        </div>
       </div>
 
-      {/* Detail modal — renders Markdown article for the selected entry */}
+      {/* Detail modal */}
       <Modal
         isOpen={Boolean(activeEntry)}
         onClose={handleClose}

@@ -1,28 +1,21 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import SceneLayout from "@layouts/SceneLayout/SceneLayout";
+import SceneNav from "@components/ui/SceneNav/SceneNav";
 import ProjectCard from "@components/projects/ProjectCard/ProjectCard";
 import Modal from "@components/ui/Modal/Modal";
 import MarkdownRenderer from "@components/markdown/MarkdownRenderer/MarkdownRenderer";
 import LoadingOverlay from "@components/ui/LoadingOverlay/LoadingOverlay";
 import { projects } from "@data/projects";
 import { useMarkdown } from "@hooks/useMarkdown";
+import { staggerContainer, staggerItem } from "@theme/animations";
 import type { ProjectEntry } from "@/types/project.types";
 import styles from "./Projects.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Projects scene
 //
-// Purpose: Portfolio of shipped and in-progress projects. Each card opens a
-// Modal with a full Markdown case study when available.
-//
-// Data flow:
-//   src/data/projects.ts → Projects scene → ProjectCard (display only)
-//   On card click → Modal → MarkdownRenderer (if markdownFile present)
-//
-// Design notes (implement when ready):
-//   • Grid or masonry layout
-//   • Status / genre / role filters
-//   • Featured projects at the top with larger cards
+// Purpose: Portfolio of shipped and in-progress projects.
 // ─────────────────────────────────────────────────────────────────────────────
 
 function Projects() {
@@ -41,7 +34,22 @@ function Projects() {
   return (
     <SceneLayout sceneId="projects" title="Projects">
       <div className={styles.container}>
-        {/* Implement the Projects layout here */}
+        {/* Scene header */}
+        <motion.header
+          className={styles.header}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p className={styles.eyebrow} variants={staggerItem}>
+            Shipped &amp; in progress
+          </motion.p>
+          <motion.h1 className={styles.title} variants={staggerItem}>
+            Projects
+          </motion.h1>
+        </motion.header>
+
+        {/* Project grid */}
         <div className={styles.grid} role="list">
           {projects.map((project) => (
             <ProjectCard
@@ -52,9 +60,14 @@ function Projects() {
             />
           ))}
         </div>
+
+        {/* Navigation to other scenes */}
+        <div className={styles.navSection}>
+          <SceneNav exclude="PROJECTS" label="Continue" />
+        </div>
       </div>
 
-      {/* Detail modal — renders full case study for the selected project */}
+      {/* Detail modal */}
       <Modal
         isOpen={Boolean(activeProject)}
         onClose={handleClose}

@@ -1,25 +1,19 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import SceneLayout from "@layouts/SceneLayout/SceneLayout";
+import SceneNav from "@components/ui/SceneNav/SceneNav";
 import Modal from "@components/ui/Modal/Modal";
 import MarkdownRenderer from "@components/markdown/MarkdownRenderer/MarkdownRenderer";
 import LoadingOverlay from "@components/ui/LoadingOverlay/LoadingOverlay";
 import { gameIdeas, type GameIdeaEntry } from "@data/gameIdeas";
 import { useMarkdown } from "@hooks/useMarkdown";
+import { staggerContainer, staggerItem } from "@theme/animations";
 import styles from "./GamePhilosophy.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // GamePhilosophy scene
 //
-// Purpose: A collection of ideas, manifestos, and design philosophies that
-// express how the portfolio owner thinks about games.
-//
-// Data flow:
-//   src/data/gameIdeas.ts → GamePhilosophy scene → idea cards
-//   On card click → Modal → MarkdownRenderer (if markdownFile present)
-//
-// Design notes (implement when ready):
-//   • Could be a text-heavy article layout, a card wall, or an interactive map
-//   • This is the most expressive scene — let the design be ambitious
+// Purpose: Ideas, manifestos, and design philosophies.
 // ─────────────────────────────────────────────────────────────────────────────
 
 function GamePhilosophy() {
@@ -32,7 +26,22 @@ function GamePhilosophy() {
   return (
     <SceneLayout sceneId="game-philosophy" title="Game Philosophy">
       <div className={styles.container}>
-        {/* Implement the Game Philosophy layout here */}
+        {/* Scene header */}
+        <motion.header
+          className={styles.header}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p className={styles.eyebrow} variants={staggerItem}>
+            Design thinking
+          </motion.p>
+          <motion.h1 className={styles.title} variants={staggerItem}>
+            Game Philosophy
+          </motion.h1>
+        </motion.header>
+
+        {/* Idea cards */}
         <div className={styles.ideaList}>
           {gameIdeas.map((idea) => (
             <article
@@ -62,6 +71,11 @@ function GamePhilosophy() {
               )}
             </article>
           ))}
+        </div>
+
+        {/* Navigation to other scenes */}
+        <div className={styles.navSection}>
+          <SceneNav exclude="GAME_PHILOSOPHY" label="Continue" />
         </div>
       </div>
 

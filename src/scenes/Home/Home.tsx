@@ -1,25 +1,45 @@
+import { motion } from "framer-motion";
 import SceneLayout from "@layouts/SceneLayout/SceneLayout";
+import SceneNav from "@components/ui/SceneNav/SceneNav";
+import { fadeInUp, staggerContainer, staggerItem } from "@theme/animations";
 import styles from "./Home.module.css";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Home scene
-//
-// Purpose: Primary landing / overview. Introduces the portfolio owner and
-// provides entry points to the other scenes.
-//
-// Design notes (implement when ready):
-//   • Hero section with name, title, and brief positioning statement
-//   • Navigation cards or links to Timeline, Projects, Abilities, Philosophy
-//   • Could include a featured project or reel
-//
-// All content comes from src/data/. No strings should be hard-coded here.
+// Home scene — primary landing and navigation hub.
+// Content will be fully implemented in the next pass.
 // ─────────────────────────────────────────────────────────────────────────────
 
 function Home() {
   return (
     <SceneLayout sceneId="home" title="Home">
       <div className={styles.container}>
-        {/* Implement the Home scene here */}
+        {/* Hero */}
+        <motion.header
+          className={styles.hero}
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p className={styles.eyebrow} variants={staggerItem}>
+            Game Director · Designer · Storyteller
+          </motion.p>
+          <motion.h1 className={styles.headline} variants={staggerItem}>
+            A Game Director
+          </motion.h1>
+          <motion.p className={styles.subline} variants={staggerItem}>
+            Crafting worlds, systems, and experiences that leave a mark.
+          </motion.p>
+        </motion.header>
+
+        {/* Scene navigation cards */}
+        <motion.div
+          className={styles.navSection}
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+        >
+          <SceneNav exclude="HOME" label="Explore" />
+        </motion.div>
       </div>
     </SceneLayout>
   );
