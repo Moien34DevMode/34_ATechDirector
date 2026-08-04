@@ -4,9 +4,6 @@ import { ROUTES, type RouteKey } from '@router/routes';
  * Navigation configuration.
  * The NavigationLayout and NavigationButton components read this array —
  * they never hard-code scene names or paths.
- *
- * Splash is intentionally excluded: it acts as an entry gate, not a
- * persistent nav destination.
  */
 
 export interface NavItem {

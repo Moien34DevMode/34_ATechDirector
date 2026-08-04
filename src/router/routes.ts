@@ -6,8 +6,7 @@
  */
 
 export const ROUTES = {
-  SPLASH:          '/',
-  HOME:            '/home',
+  HOME:            '/',
   TIMELINE:        '/timeline',
   ABILITIES:       '/abilities',
   PROJECTS:        '/projects',

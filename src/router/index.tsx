@@ -12,7 +12,6 @@ import LoadingOverlay from "@components/ui/LoadingOverlay/LoadingOverlay";
 // This keeps the initial bundle tiny and time-to-interactive fast.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const Splash = lazy(() => import("@scenes/Splash/Splash"));
 const Home = lazy(() => import("@scenes/Home/Home"));
 const Timeline = lazy(() => import("@scenes/Timeline/Timeline"));
 const Abilities = lazy(() => import("@scenes/Abilities/Abilities"));
@@ -37,7 +36,6 @@ export function AppRouter() {
     <Suspense fallback={<LoadingOverlay />}>
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
-          <Route path={ROUTES.SPLASH} element={<Splash />} />
           <Route path={ROUTES.HOME} element={<Home />} />
           <Route path={ROUTES.TIMELINE} element={<Timeline />} />
           <Route path={ROUTES.ABILITIES} element={<Abilities />} />

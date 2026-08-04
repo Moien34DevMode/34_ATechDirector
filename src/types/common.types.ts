@@ -42,7 +42,6 @@ export interface ExternalLink {
 // ─── Scenes ──────────────────────────────────────────────────────────────────
 
 export type SceneId =
-  | 'splash'
   | 'home'
   | 'timeline'
   | 'abilities'
