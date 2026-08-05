@@ -33,7 +33,7 @@
   aspect-ratio: 9 / 16;
 
   /* Hard cap so they don't eat too much of narrow desktops */
-  max-width: 500px;
+  max-width: 400px;
 }
 
 /* Vignette overlay — fades portrait edges seamlessly into the dark background */
