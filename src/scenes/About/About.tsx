@@ -88,7 +88,7 @@ function About() {
           >
             <div className={styles.photoFrame}>
               <img
-                src="images/KidLookingLeft.webp"
+                src="images/Esfehan.webp"
                 alt="Moien — profile photo"
                 className={styles.photo}
               />
