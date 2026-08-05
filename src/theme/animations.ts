@@ -91,19 +91,9 @@ export const scaleIn: Variants = {
  * The exit scaling slightly above 1 creates a "push away" feel.
  */
 export const sceneEnter: Variants = {
-  hidden:  { opacity: 0, scale: 0.97, filter: 'blur(4px)' },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    filter: 'blur(0px)',
-    transition: easing.gentle,
-  },
-  exit: {
-    opacity: 0,
-    scale: 1.02,
-    filter: 'blur(2px)',
-    transition: easing.snappy,
-  },
+  hidden:  { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: easing.gentle },
+  exit:    { opacity: 0, y: -8, transition: easing.snappy },
 };
 
 /**

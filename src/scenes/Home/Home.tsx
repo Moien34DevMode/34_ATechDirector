@@ -34,7 +34,7 @@ function Home() {
           <CodeRain className={styles.codeRain} />
           {/* Replace src with your actual camera PNG once ready */}
           <img
-            src="\src\assets\images\Other\WireframeCamera.webp"
+            src="images/WireframeCamera.webp"
             alt=""
             className={styles.cameraImg}
             aria-hidden="true"
@@ -82,7 +82,7 @@ function Home() {
         <div className={styles.portraitRight} aria-hidden="true">
           {/* Replace src with your actual person PNG/JPG once ready */}
           <img
-            src="\src\assets\images\Other\Kid Looking Left.webp"
+            src="images/KidLookingLeft.webp"
             alt=""
             className={styles.personImg}
             aria-hidden="true"
