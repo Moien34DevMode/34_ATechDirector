@@ -24,13 +24,14 @@ export const navItems: NavItem[] = [
     path:       ROUTES.HOME,
   },
   {
-    key:        'TIMELINE',
-    label:      'Timeline',
-    path:       ROUTES.TIMELINE,
+    key:        'ABOUT',
+    label:      'About Me',
+    shortLabel: 'About',
+    path:       ROUTES.ABOUT,
   },
   {
     key:        'ABILITIES',
-    label:      'Abilities',
+    label:      'Skills',
     path:       ROUTES.ABILITIES,
   },
   {
@@ -40,8 +41,13 @@ export const navItems: NavItem[] = [
   },
   {
     key:        'GAME_PHILOSOPHY',
-    label:      'Game Philosophy',
-    shortLabel: 'Philosophy',
+    label:      'Gaming Preferences',
+    shortLabel: 'GP',
     path:       ROUTES.GAME_PHILOSOPHY,
   },
+  {
+    key:        'TIMELINE',
+    label:      'Timeline',
+    path:       ROUTES.TIMELINE,
+  }
 ];

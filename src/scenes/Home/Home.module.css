@@ -1,21 +1,118 @@
-/* Home scene */
+/* ═══════════════════════════════════════════════════════════════════════════
+   Home scene
+   Three-column layout: [left portrait] [centre hero] [right portrait]
+   The entire page is locked to the viewport — no scrolling.
+   Portraits enforce a true 9:16 aspect ratio, height-driven.
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-.container {
+/* ── Page wrapper ────────────────────────────────────────────────────────── */
+
+.page {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-4xl);
+  align-items: stretch;
   width: 100%;
-  max-width: var(--max-width-content);
-  margin: 0 auto;
-  padding: var(--space-5xl) var(--space-xl) var(--space-4xl);
+  /* Fill exactly the remaining height beneath the nav bar */
+  height: 100%;
+  overflow: hidden;
 }
 
-/* ── Hero ───────────────────────────────────────────────────────────────── */
+/* ── Shared portrait base ────────────────────────────────────────────────── */
 
-.hero {
+.portraitLeft,
+.portraitRight {
+  position: relative;
+  flex: 0 0 auto;
+  overflow: hidden;
+
+  /*
+   * True 9:16: width is derived from the available height.
+   * The column fills 100% of the parent height, then width = height * (9/16).
+   * aspect-ratio on a flex child with align-items: stretch sets width from height.
+   */
+  height: 100%;
+  aspect-ratio: 9 / 16;
+
+  /* Hard cap so they don't eat too much of narrow desktops */
+  max-width: 500px;
+}
+
+/* Vignette overlay — fades portrait edges seamlessly into the dark background */
+.portraitVignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Left portrait: code rain background + camera PNG ───────────────────── */
+
+.portraitLeft {
+  background-color: #000;
+}
+
+.codeRain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cameraImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.12));
+  z-index: 1;
+}
+
+/* Fade all four edges; right edge fades hardest into the centre background */
+.portraitLeft .portraitVignette {
+  background:
+    linear-gradient(to right,  rgba(10,10,10,1)   0%,  rgba(10,10,10,0) 35%),
+    linear-gradient(to left,   rgba(10,10,10,1)   0%,  rgba(10,10,10,0) 20%),
+    linear-gradient(to bottom, rgba(10,10,10,0.8) 0%,  rgba(10,10,10,0) 18%),
+    linear-gradient(to top,    rgba(10,10,10,0.8) 0%,  rgba(10,10,10,0) 18%);
+}
+
+/* ── Right portrait: person photograph ──────────────────────────────────── */
+
+.portraitRight {
+  background-color: var(--color-bg-secondary);
+}
+
+.personImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(20%) contrast(1.05);
+}
+
+/* Fade all four edges; left edge fades hardest into the centre background */
+.portraitRight .portraitVignette {
+  background:
+    linear-gradient(to left,   rgba(10,10,10,1)   0%,  rgba(10,10,10,0) 35%),
+    linear-gradient(to right,  rgba(10,10,10,1)   0%,  rgba(10,10,10,0) 20%),
+    linear-gradient(to bottom, rgba(10,10,10,0.8) 0%,  rgba(10,10,10,0) 18%),
+    linear-gradient(to top,    rgba(10,10,10,0.8) 0%,  rgba(10,10,10,0) 18%);
+}
+
+/* ── Centre: hero + navigation ───────────────────────────────────────────── */
+
+.centre {
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  background: radial-gradient(ellipse at center, rgba(30,30,30,0.4) 0%, transparent 70%);
+  overflow: hidden;
 }
 
 .eyebrow {
@@ -26,34 +123,110 @@
   color: var(--color-text-muted);
 }
 
-.headline {
+.title {
   font-family: var(--font-heading);
-  font-size: clamp(var(--text-4xl), 8vw, var(--text-6xl));
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-6xl));
   font-weight: var(--weight-black);
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-tighter);
   color: var(--color-text-primary);
 }
 
-.subline {
-  font-size: var(--text-lg);
+.subtitle {
+  font-size: clamp(var(--text-md), 2vw, var(--text-2xl));
+  font-weight: var(--weight-light);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--color-text-accent);
+}
+
+.tagline {
+  font-size: var(--text-sm);
   font-weight: var(--weight-regular);
   line-height: var(--leading-relaxed);
   color: var(--color-text-secondary);
-  max-width: 52ch;
+  max-width: 36ch;
 }
 
-/* ── Nav section ────────────────────────────────────────────────────────── */
+/* ── Navigation buttons ─────────────────────────────────────────────────── */
 
-.navSection {
+.navGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
   width: 100%;
+  max-width: 280px;
+  margin-top: var(--space-sm);
 }
 
-/* ── Responsive ─────────────────────────────────────────────────────────── */
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  transition:
+    background-color var(--transition-fast),
+    border-color     var(--transition-fast),
+    color            var(--transition-fast),
+    transform        var(--transition-fast);
+}
 
+.navBtn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  transform: translateY(-1px);
+}
+
+.navBtn:active {
+  transform: translateY(0);
+}
+
+.navBtnLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.navBtnArrow {
+  opacity: 0.35;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.navBtn:hover .navBtnArrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Tablet — cap portrait width earlier */
+@media (max-width: 1023px) {
+  .portraitLeft,
+  .portraitRight {
+    max-width: 180px;
+  }
+}
+
+/* Mobile — hide portraits, centre column fills the screen */
 @media (max-width: 767px) {
-  .container {
-    padding: var(--space-3xl) var(--space-md) var(--space-3xl);
-    gap: var(--space-3xl);
+  .portraitLeft,
+  .portraitRight {
+    display: none;
+  }
+
+  .centre {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .navGrid {
+    max-width: 100%;
   }
 }

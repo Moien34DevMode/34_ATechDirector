@@ -1,4 +1,4 @@
-/* Abilities scene — scoped styles */
+/* About scene */
 
 .container {
   display: flex;
@@ -12,8 +12,6 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
-
-/* ── Scene header ───────────────────────────────────────────────────────── */
 
 .header {
   display: flex;

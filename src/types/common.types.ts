@@ -43,6 +43,7 @@ export interface ExternalLink {
 
 export type SceneId =
   | 'home'
+  | 'about'
   | 'timeline'
   | 'abilities'
   | 'projects'

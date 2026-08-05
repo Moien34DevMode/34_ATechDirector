@@ -13,6 +13,7 @@ import LoadingOverlay from "@components/ui/LoadingOverlay/LoadingOverlay";
 // ─────────────────────────────────────────────────────────────────────────────
 
 const Home = lazy(() => import("@scenes/Home/Home"));
+const About = lazy(() => import("@scenes/About/About"));
 const Timeline = lazy(() => import("@scenes/Timeline/Timeline"));
 const Abilities = lazy(() => import("@scenes/Abilities/Abilities"));
 const Projects = lazy(() => import("@scenes/Projects/Projects"));
@@ -37,6 +38,7 @@ export function AppRouter() {
       <AnimatePresence mode="wait" initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path={ROUTES.HOME} element={<Home />} />
+          <Route path={ROUTES.ABOUT} element={<About />} />
           <Route path={ROUTES.TIMELINE} element={<Timeline />} />
           <Route path={ROUTES.ABILITIES} element={<Abilities />} />
           <Route path={ROUTES.PROJECTS} element={<Projects />} />
