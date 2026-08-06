@@ -34,7 +34,7 @@ function Home() {
           <CodeRain className={styles.codeRain} />
           {/* Replace src with your actual camera PNG once ready */}
           <img
-            src="images/WireframeCamera.webp"
+            src="images/WireFrameKid.webp"
             alt=""
             className={styles.cameraImg}
             aria-hidden="true"
