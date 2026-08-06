@@ -19,6 +19,12 @@ import styles from "./SkillTreemap.module.css";
 // • Hovering any tile surfaces its name + description in the header bar.
 // ─────────────────────────────────────────────────────────────────────────────
 
+/** Inset applied to every tile so borders/gaps stay inside the stage. */
+const TILE_GAP = 2;
+
+/** How many child names a folder tile shows before collapsing into "N more…". */
+const CHILD_PREVIEW = 4;
+
 export interface SkillTreemapProps {
   root: SkillNode;
   className?: string;
@@ -137,6 +143,12 @@ function SkillTreemap({ root, className }: SkillTreemapProps) {
                   tile.node.children !== undefined && tile.node.children.length > 0;
                 const intensity = 0.12 + 0.58 * (tile.weight / maxWeight);
 
+                const children = tile.node.children ?? [];
+                const preview = children.slice(0, CHILD_PREVIEW);
+                const extra = children.length - preview.length;
+                const roomy = tile.width > 88 && tile.height > 62;
+                const compact = tile.width > 70 && tile.height > 50;
+
                 return (
                   <motion.button
                     key={tile.node.id}
@@ -146,10 +158,10 @@ function SkillTreemap({ root, className }: SkillTreemapProps) {
                     className={cn(styles.tile, clickable ? styles.tileFolder : styles.tileLeaf)}
                     style={
                       {
-                        left: tile.x,
-                        top: tile.y,
-                        width: tile.width,
-                        height: tile.height,
+                        left: tile.x + TILE_GAP,
+                        top: tile.y + TILE_GAP,
+                        width: Math.max(0, tile.width - TILE_GAP * 2),
+                        height: Math.max(0, tile.height - TILE_GAP * 2),
                         "--intensity": intensity,
                       } as CSSProperties
                     }
@@ -167,7 +179,23 @@ function SkillTreemap({ root, className }: SkillTreemapProps) {
                     }
                   >
                     <span className={styles.tileLabel}>{tile.node.name}</span>
-                    {clickable && tile.width > 70 && tile.height > 50 && (
+
+                    {clickable && roomy && preview.length > 0 && (
+                      <span className={styles.tileBody}>
+                        <ul className={styles.tileChildren}>
+                          {preview.map((child) => (
+                            <li key={child.id} className={styles.tileChild} title={child.name}>
+                              {child.name}
+                            </li>
+                          ))}
+                        </ul>
+                        {extra > 0 && (
+                          <span className={styles.tileMore}>{extra} more...</span>
+                        )}
+                      </span>
+                    )}
+
+                    {clickable && compact && (
                       <span className={styles.tileCount}>{tile.weight}</span>
                     )}
                   </motion.button>
