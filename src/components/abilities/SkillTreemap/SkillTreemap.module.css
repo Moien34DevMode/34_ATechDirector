@@ -1,0 +1,248 @@
+/* SkillTreemap — nested, click-to-zoom treemap */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  gap: var(--space-sm);
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.backButton {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-default);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--text-md);
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.backButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.backButton:not(:disabled):hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.crumbGroup {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+}
+
+.crumbSep {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.crumbButton {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.crumbButton:hover {
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.crumbCurrent {
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.infoPanel {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-xs);
+  max-width: 26rem;
+  min-width: 0;
+  text-align: right;
+}
+
+.infoName {
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.infoDesc {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.infoHint {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+/* ── Stage ─────────────────────────────────────────────────────────────── */
+
+.stageOuter {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.tile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  padding: var(--space-xs);
+  margin: 2px;
+  box-sizing: border-box;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-default);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, calc(var(--intensity) * 0.16)) 0%,
+    rgba(255, 255, 255, calc(var(--intensity) * 0.05)) 100%
+  );
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  text-align: center;
+  overflow: hidden;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+    color var(--transition-fast), background var(--transition-fast);
+}
+
+.tileFolder {
+  cursor: pointer;
+}
+
+.tileFolder:hover,
+.tileFolder:focus-visible {
+  border-color: var(--color-accent-highlight);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-glow);
+  outline: none;
+}
+
+.tileFolder::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.tileFolder:hover::after {
+  background: var(--color-accent-highlight);
+  opacity: 1;
+}
+
+.tileLeaf {
+  cursor: default;
+  border-style: dashed;
+}
+
+.tileLeaf:hover,
+.tileLeaf:focus-visible {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.tileLabel {
+  font-size: clamp(var(--text-xs), 1.1vw, var(--text-sm));
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.tileCount {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ── Small tiles: hide label, keep it hover/focus only via title/aria ──── */
+
+@media (max-width: 767px) {
+  .infoPanel {
+    max-width: none;
+    text-align: left;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-xs);
+  }
+}
