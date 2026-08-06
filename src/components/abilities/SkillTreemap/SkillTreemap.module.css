@@ -205,7 +205,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 
@@ -306,9 +305,7 @@
 
   /* Tiles are smaller on narrow screens — tighter labels so the child
      preview stays readable instead of wrapping/overflowing. */
-  .tileLabel {
-    -webkit-line-clamp: 1;
-  }
+
 
   .tileChild,
   .tileMore {

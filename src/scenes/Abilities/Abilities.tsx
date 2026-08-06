@@ -26,9 +26,7 @@ function Abilities() {
           <motion.p className={styles.eyebrow} variants={staggerItem}>
             Skill Map
           </motion.p>
-          <motion.h1 className={styles.title} variants={staggerItem}>
-            Abilities
-          </motion.h1>
+
         </motion.header>
 
         <motion.div
