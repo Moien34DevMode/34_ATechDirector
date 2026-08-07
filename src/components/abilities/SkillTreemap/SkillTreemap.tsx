@@ -22,6 +22,15 @@ import styles from "./SkillTreemap.module.css";
 /** Inset applied to every tile so borders/gaps stay inside the stage. */
 const TILE_GAP = 2;
 
+/** Horizontal tile padding — matches var(--space-xs) in the module CSS. */
+const NESTED_PAD = 8;
+
+/** Vertical space above the nested child grid: tile padding + label + gap. */
+const NESTED_TOP = 44;
+
+/** Bottom padding left empty inside a folder tile. */
+const NESTED_BOTTOM = 8;
+
 /** How many child names a folder tile shows before collapsing into "N more…". */
 const CHILD_PREVIEW = 4;
 
@@ -144,6 +153,22 @@ function SkillTreemap({ root, className }: SkillTreemapProps) {
                 const intensity = 0.12 + 0.58 * (tile.weight / maxWeight);
 
                 const children = tile.node.children ?? [];
+
+                // Nested child layout — a mini treemap drawn inside folder
+                // tiles so children are visible without zooming in.
+                const innerW = tile.width - NESTED_PAD * 2;
+                const innerH = tile.height - NESTED_TOP - NESTED_BOTTOM;
+                const nested =
+                  children.length > 0 && innerW > 48 && innerH > 48
+                    ? squarify(weighChildren(tile.node), {
+                        x: NESTED_PAD,
+                        y: NESTED_TOP,
+                        width: innerW,
+                        height: innerH,
+                      })
+                    : [];
+                const nestedMax = nested.reduce((m, t) => Math.max(m, t.weight), 1);
+
                 const preview = children.slice(0, CHILD_PREVIEW);
                 const extra = children.length - preview.length;
                 const roomy = tile.width > 88 && tile.height > 62;
@@ -180,7 +205,39 @@ function SkillTreemap({ root, className }: SkillTreemapProps) {
                   >
                     <span className={styles.tileLabel}>{tile.node.name}</span>
 
-                    {clickable && roomy && preview.length > 0 && (
+                    {nested.length > 0 && (
+                      <span className={styles.tileNested} aria-hidden="true">
+                        {nested.map((nt) => {
+                          const ntChildren = nt.node.children ?? [];
+                          const ntIntensity = 0.12 + 0.58 * (nt.weight / nestedMax);
+                          return (
+                            <span
+                              key={nt.node.id}
+                              className={cn(
+                                styles.nestedBox,
+                                ntChildren.length > 0 ? styles.nestedBoxFolder : styles.nestedBoxLeaf,
+                              )}
+                              style={
+                                {
+                                  left: nt.x,
+                                  top: nt.y,
+                                  width: nt.width,
+                                  height: nt.height,
+                                  "--intensity": ntIntensity,
+                                } as CSSProperties
+                              }
+                            >
+                              <span className={styles.nestedLabel}>{nt.node.name}</span>
+                              {ntChildren.length > 0 && (
+                                <span className={styles.nestedCount}>{nt.weight}</span>
+                              )}
+                            </span>
+                          );
+                        })}
+                      </span>
+                    )}
+
+                    {nested.length === 0 && clickable && roomy && preview.length > 0 && (
                       <span className={styles.tileBody}>
                         <ul className={styles.tileChildren}>
                           {preview.map((child) => (
@@ -195,7 +252,7 @@ function SkillTreemap({ root, className }: SkillTreemapProps) {
                       </span>
                     )}
 
-                    {clickable && compact && (
+                    {nested.length === 0 && clickable && compact && (
                       <span className={styles.tileCount}>{tile.weight}</span>
                     )}
                   </motion.button>
