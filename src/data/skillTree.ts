@@ -155,6 +155,11 @@ export const skillTree: SkillNode = node('skills', 'Skills', [
         leaf('skills.game.engine-less-skills.coordinate-systems-linear-algebra.linear-transformations-matrices', 'Linear Transformations & Matrices'),
         leaf('skills.game.engine-less-skills.coordinate-systems-linear-algebra.elementary-matrix-operations', 'Elementary Matrix Operations'),
       ]),
+      node(
+        'skills.game.engine-less-skills.dynamic-game-difficulty-balancing','Dynamic Game Difficulty Balancing', [
+          leaf('skills.game.engine-less-skills.dynamic-game-difficulty-balancing.player-performance-modeling','Player Performance Modeling'),
+          leaf('skills.game.engine-less-skills.dynamic-game-difficulty-balancing.adaptive-difficulty-algorithms','Adaptive Difficulty Algorithms'),
+      ]),
       node('skills.game.engine-less-skills.sdl3', 'SDL3', [
         leaf('skills.game.engine-less-skills.sdl3.window-management', 'Window Management'),
         leaf('skills.game.engine-less-skills.sdl3.input-handling', 'Input Handling'),
@@ -218,12 +223,22 @@ export const skillTree: SkillNode = node('skills', 'Skills', [
 
   // ── Computer Science (EDU) ───────────────────────────────────────────
   node('skills.computer-science', 'Computer Science', [
-    leaf('skills.computer-science.data-structures', 'Data Structures'),
-    leaf('skills.computer-science.algorithms-design', 'Algorithms Design'),
+    node('skills.computer-science.data-structures', 'Data Structures', [
+      leaf('skills.computer-science.data-structures.linear-data-structures', 'Linear Data Structures'),
+      leaf('skills.computer-science.data-structures.tree-data-structures', 'Tree Data Structures'),
+      leaf('skills.computer-science.data-structures.graph-data-structures', 'Graph Data Structures'),
+    ]),
+    node('skills.computer-science.algorithms-design', 'Algorithms Design', [
+      leaf('skills.computer-science.algorithms-design.complexity-analysis', 'Complexity Analysis'),
+      leaf('skills.computer-science.algorithms-design.divide-and-conquer', 'Divide & Conquer'),
+      leaf('skills.computer-science.algorithms-design.greedy-algorithms', 'Greedy Algorithms'),
+      leaf('skills.computer-science.algorithms-design.dynamic-programming', 'Dynamic Programming'),
+    ]),
     node('skills.computer-science.artificial-intelligence', 'Artificial Intelligence', [
       leaf('skills.computer-science.artificial-intelligence.search-algorithms', 'Search Algorithms'),
       leaf('skills.computer-science.artificial-intelligence.game-theory', 'Game Theory'),
       leaf('skills.computer-science.artificial-intelligence.deep-learning', 'Deep Learning'),
+      leaf('skills.computer-science.artificial-intelligence.pytorch', 'PyTorch'),
     ]),
     node('skills.computer-science.data-base', 'Data Base', [
       leaf('skills.computer-science.data-base.relational-model', 'Relational Model'),
