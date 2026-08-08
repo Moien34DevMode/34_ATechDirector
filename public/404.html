@@ -7,7 +7,7 @@
     <!--
       GitHub Pages SPA redirect script.
 
-      When GitHub Pages 404s on a deep-link (e.g. /34_AGameDirector/abilities),
+      When GitHub Pages 404s on a deep-link (e.g. /34_ATechDirector/abilities),
       this script re-encodes the FULL pathname as a query string on the repo
       root, then redirects to index.html which restores it before React mounts.
 
@@ -25,7 +25,7 @@
       var l = window.location;
 
       // The base is everything up to and including the repo segment
-      // e.g. https://moien34devmode.github.io/34_AGameDirector
+      // e.g. https://moien34devmode.github.io/34_ATechDirector
       var base = l.protocol +
         '//' +
         l.hostname +
@@ -33,7 +33,7 @@
         l.pathname.split('/').slice(0, 1 + segmentCount).join('/');
 
       // The path after the repo segment that React Router cares about
-      // e.g. for /34_AGameDirector/abilities  →  /abilities
+      // e.g. for /34_ATechDirector/abilities  →  /abilities
       var routePath = '/' + l.pathname
         .split('/')
         .slice(1 + segmentCount)

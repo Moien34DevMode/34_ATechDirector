@@ -20,19 +20,19 @@
           sees the correct path and renders the right scene.
 
           Example round-trip:
-            User reloads: https://user.github.io/34_AGameDirector/abilities
+            User reloads: https://user.github.io/34_ATechDirector/abilities
             404.html redirects to:
-              https://user.github.io/34_AGameDirector/?p=/abilities
+              https://user.github.io/34_ATechDirector/?p=/abilities
             This script calls:
-              replaceState(null, null, '/34_AGameDirector/abilities')
-            React Router (basename='/34_AGameDirector/') sees '/abilities' ✓
+              replaceState(null, null, '/34_ATechDirector/abilities')
+            React Router (basename='/34_ATechDirector/') sees '/abilities' ✓
         -->
         <script>
             (function (l) {
                 var params = new URLSearchParams(l.search);
                 var routePath = params.get('p');
                 if (routePath) {
-                    // l.pathname is the base, e.g. '/34_AGameDirector/'
+                    // l.pathname is the base, e.g. '/34_ATechDirector/'
                     // routePath is e.g. '/abilities'
                     // Strip trailing slash from base, add routePath
                     var base = l.pathname.replace(/\/$/, '');
