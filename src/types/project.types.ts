@@ -24,16 +24,24 @@ export type ProjectRole =
 /** Left open as a string so you can add any genre without changing this file */
 export type ProjectGenre = string;
 
+/** Category that drives display priority: professional → personal → educational */
+export type ProjectCategory = 'professional' | 'personal' | 'educational';
+
 export interface ProjectEntry extends DataEntry {
   title: string;
-  tagline: string;
+  category: ProjectCategory;
+
+  /** Bullet-point highlights shown on the project card */
+  keyFeatures: string[];
+
+  tagline?: string;
 
   /** Short description for card views */
-  summary: string;
+  summary?: string;
 
-  status: ProjectStatus;
-  roles: ProjectRole[];
-  genres: ProjectGenre[];
+  status?: ProjectStatus;
+  roles?: ProjectRole[];
+  genres?: ProjectGenre[];
   platforms?: string[];
   engine?: string;
 
@@ -44,7 +52,7 @@ export interface ProjectEntry extends DataEntry {
   endDate?: string;
 
   /** Ordered list — first image is used as the card thumbnail */
-  media: MediaAsset[];
+  media?: MediaAsset[];
 
   /**
    * Optional path relative to src/assets/markdown/projects/.
