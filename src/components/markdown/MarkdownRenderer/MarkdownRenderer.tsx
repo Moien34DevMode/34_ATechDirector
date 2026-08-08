@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import MediaLoader from "@components/media/MediaLoader/MediaLoader";
 import { cn } from "@utils/cn";
 import styles from "./MarkdownRenderer.module.css";
 
@@ -40,11 +41,10 @@ function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
             </a>
           ),
           img: ({ src, alt, ...props }) => (
-            <img
+            <MediaLoader
               src={src}
               alt={alt ?? ""}
-              loading="lazy"
-              className={styles.image}
+              mediaClassName={styles.image}
               {...props}
             />
           ),

@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import type { ProjectEntry } from "@/types/project.types";
+import MediaLoader from "@components/media/MediaLoader/MediaLoader";
 import { cn } from "@utils/cn";
 import styles from "./ProjectCard.module.css";
 
@@ -30,6 +32,11 @@ function ProjectCard({
   className,
 }: ProjectCardProps) {
   const thumbnail = project.media[0];
+  const thumbnailRef = useRef<HTMLDivElement>(null);
+  const isThumbnailInView = useInView(thumbnailRef, {
+    once: true,
+    margin: "200px",
+  });
 
   return (
     <motion.article
@@ -54,13 +61,18 @@ function ProjectCard({
     >
       {/* Thumbnail */}
       {thumbnail && variant !== "compact" && (
-        <div className={styles.thumbnailWrapper} aria-hidden="true">
-          {thumbnail.kind === "image" ? (
-            <img
+        <div
+          className={styles.thumbnailWrapper}
+          aria-hidden="true"
+          ref={thumbnailRef}
+        >
+          {thumbnail.kind === "image" || thumbnail.kind === "gif" ? (
+            <MediaLoader
+              kind={thumbnail.kind}
               src={thumbnail.src}
               alt={thumbnail.alt ?? project.title}
-              className={styles.thumbnail}
-              loading="lazy"
+              enabled={isThumbnailInView}
+              mediaClassName={styles.thumbnail}
             />
           ) : (
             <div className={styles.thumbnailPlaceholder} />

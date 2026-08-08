@@ -92,6 +92,12 @@
   filter: grayscale(20%) contrast(1.05);
 }
 
+/* Fills the portrait column while the MediaLoader wrapper handles positioning */
+.personImgWrap {
+  position: absolute;
+  inset: 0;
+}
+
 /* Fade all four edges; left edge fades hardest into the centre background */
 .portraitRight .portraitVignette {
   background:

@@ -4,6 +4,7 @@ import { SiUnrealengine, SiTelegram, SiGithub } from "react-icons/si";
 import { HiOutlineCpuChip, HiOutlineAcademicCap, HiOutlineBolt, HiOutlineEnvelope, HiOutlineClipboardDocument, HiOutlineCheck } from "react-icons/hi2";
 import { LuLayers, LuCode, LuExternalLink, LuLinkedin} from "react-icons/lu";
 import SceneLayout from "@layouts/SceneLayout/SceneLayout";
+import MediaLoader from "@components/media/MediaLoader/MediaLoader";
 import { staggerContainer, staggerItem, fadeInLeft, fadeInRight } from "@theme/animations";
 import styles from "./About.module.css";
 
@@ -142,10 +143,10 @@ function About() {
             animate="visible"
           >
             <div className={styles.photoFrame}>
-              <img
+              <MediaLoader
                 src="images/Esfehan.webp"
                 alt="Moien — profile photo"
-                className={styles.photo}
+                mediaClassName={styles.photo}
               />
             </div>
             <p className={styles.photoCaption}>Moien Talebi</p>

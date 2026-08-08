@@ -134,6 +134,7 @@
 
 .image {
   width: 100%;
+  height: auto; /* keep the source's natural aspect ratio inside MediaLoader */
   border-radius: var(--radius-md);
   margin: var(--space-lg) 0;
 }

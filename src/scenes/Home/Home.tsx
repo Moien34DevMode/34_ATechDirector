@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import SceneLayout from "@layouts/SceneLayout/SceneLayout";
 import CodeRain from "@components/ui/CodeRain/CodeRain";
+import MediaLoader from "@components/media/MediaLoader/MediaLoader";
 import { staggerContainer, staggerItem, fadeInUp } from "@theme/animations";
 import { ROUTES } from "@router/routes";
 import styles from "./Home.module.css";
@@ -33,11 +34,10 @@ function Home() {
         <div className={styles.portraitLeft} aria-hidden="true">
           <CodeRain className={styles.codeRain} />
           {/* Replace src with your actual camera PNG once ready */}
-          <img
+          <MediaLoader
             src="images/WireFrameKid.webp"
             alt=""
             className={styles.cameraImg}
-            aria-hidden="true"
           />
           {/* Gradient vignette so the portrait blends into the dark bg */}
           <div className={styles.portraitVignette} />
@@ -81,11 +81,11 @@ function Home() {
         {/* ── Right portrait: person image ── */}
         <div className={styles.portraitRight} aria-hidden="true">
           {/* Replace src with your actual person PNG/JPG once ready */}
-          <img
+          <MediaLoader
             src="images/KidLookingLeft.webp"
             alt=""
-            className={styles.personImg}
-            aria-hidden="true"
+            className={styles.personImgWrap}
+            mediaClassName={styles.personImg}
           />
           <div className={styles.portraitVignette} />
         </div>
