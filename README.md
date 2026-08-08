@@ -1,6 +1,6 @@
-# Game Director — Portfolio
+# Technical Director — Portfolio
 
-An interactive portfolio for a Game Director. Built as a scene-based React application, designed to feel more like a game UI than a traditional scrolling website.
+An interactive portfolio for a Technical Director. Built as a scene-based React application, designed to feel more like a game UI than a traditional scrolling website.
 
 ---
 

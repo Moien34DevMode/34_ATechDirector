@@ -6,7 +6,7 @@ interface CodeRainProps {
 }
 
 const CHARS =
-  'const let function return if else for while class import export default type interface extends implements async await void null undefined true false => {} [] () ; . < > = ! & | 0 1 { } game director scene world system entity component render update init destroy loop event trigger state machine quest dialogue choice branch node graph tree mesh shader vertex fragment uniform sampler texture atlas sprite animation keyframe easing lerp clamp map filter reduce push pop shift splice slice join split trim parse JSON fetch async Promise resolve reject then catch finally'.split(
+  'const let function return if else for while class import export default type interface extends implements async await void null undefined true false => {} [] () ; . < > = ! & | 0 1 { } Technical director scene world system entity component render update init destroy loop event trigger state machine quest dialogue choice branch node graph tree mesh shader vertex fragment uniform sampler texture atlas sprite animation keyframe easing lerp clamp map filter reduce push pop shift splice slice join split trim parse JSON fetch async Promise resolve reject then catch finally'.split(
     ' ',
   );
 

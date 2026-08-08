@@ -22,7 +22,7 @@ function node(id: string, name: string, children: SkillNode[]): SkillNode {
 
 export const skillTree: SkillNode = node('skills', 'Skills', [
   // ── Game ──────────────────────────────────────────────────────────────
-  node('skills.game', 'Game', [
+  node('skills.game', 'Game Development', [
     node('skills.game.unreal-engine', 'Unreal Engine', [
       node('skills.game.unreal-engine.engine-architecture', 'Engine Architecture', [
         leaf('skills.game.unreal-engine.engine-architecture.framework-layers', 'Framework Layers'),
@@ -66,7 +66,6 @@ export const skillTree: SkillNode = node('skills', 'Skills', [
       node('skills.game.unreal-engine.vfx', 'VFX', [
         leaf('skills.game.unreal-engine.vfx.niagara', 'Niagara'),
         leaf('skills.game.unreal-engine.vfx.materials-hierarchy', 'Materials Hierarchy'),
-        leaf('skills.game.unreal-engine.vfx.gpu-cpu-particles', 'GPU / CPU Particles'),
         leaf('skills.game.unreal-engine.vfx.decals', 'Decals'),
         leaf('skills.game.unreal-engine.vfx.post-processing', 'Post Processing'),
         leaf('skills.game.unreal-engine.vfx.render-targets', 'Render Targets'),
@@ -198,6 +197,7 @@ export const skillTree: SkillNode = node('skills', 'Skills', [
         leaf('skills.software-development.web-development.backend.dotnet', '.NET'),
         leaf('skills.software-development.web-development.backend.nosql-rdbms', 'NoSQL / RDBMS'),
         leaf('skills.software-development.web-development.backend.restful-apis', 'RESTful APIs'),
+        leaf('skills.software-development.web-development.backend.automation & N8N', 'automation & N8N'),
       ]),
       node('skills.software-development.web-development.networking', 'Networking', [
         leaf('skills.software-development.web-development.networking.http-https', 'HTTP / HTTPS'),

@@ -12,8 +12,8 @@ import type { TimelineEntry } from '@/types/timeline.types';
  *
  * Example entry:
  * {
- *   id:           'role-game-director-2022',
- *   title:        'Game Director',
+ *   id:           'role-Technical-director-2022',
+ *   title:        'Technical Director',
  *   organization: 'Studio Name',
  *   startDate:    '2022-01',
  *   isCurrent:    true,
