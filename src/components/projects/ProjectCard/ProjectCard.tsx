@@ -24,10 +24,20 @@ const CATEGORY_LABELS: Record<ProjectCategory, string> = {
 export interface ProjectCardProps {
   project: ProjectEntry;
   onClick?: (project: ProjectEntry) => void;
+  /** Toggle the key-features list */
+  showHighlights?: boolean;
+  /** Toggle the media thumbnail */
+  showThumbnails?: boolean;
   className?: string;
 }
 
-function ProjectCard({ project, onClick, className }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  onClick,
+  showHighlights = true,
+  showThumbnails = true,
+  className,
+}: ProjectCardProps) {
   const thumbnail = project.media?.[0];
   const thumbnailRef = useRef<HTMLDivElement>(null);
   const isThumbnailInView = useInView(thumbnailRef, {
@@ -56,20 +66,34 @@ function ProjectCard({ project, onClick, className }: ProjectCardProps) {
         }
       }}
     >
-      {/* Thumbnail */}
-      {thumbnail && (thumbnail.kind === "image" || thumbnail.kind === "gif") && (
+      {/* Open affordance — signals the whole card is clickable */}
+      <span className={styles.openHint} aria-hidden="true">
+        <LuArrowRight />
+      </span>
+
+      {/* Thumbnail (real media or placeholder so the toggle always has an effect) */}
+      {showThumbnails && (
         <div
           className={styles.thumbnailWrapper}
           aria-hidden="true"
           ref={thumbnailRef}
         >
-          <MediaLoader
-            kind={thumbnail.kind}
-            src={thumbnail.src}
-            alt={thumbnail.alt ?? project.title}
-            enabled={isThumbnailInView}
-            mediaClassName={styles.thumbnail}
-          />
+          {thumbnail &&
+          (thumbnail.kind === "image" || thumbnail.kind === "gif") ? (
+            <MediaLoader
+              kind={thumbnail.kind}
+              src={thumbnail.src}
+              alt={thumbnail.alt ?? project.title}
+              enabled={isThumbnailInView}
+              mediaClassName={styles.thumbnail}
+            />
+          ) : (
+            <div className={styles.thumbnailPlaceholder}>
+              <span className={styles.thumbnailPlaceholderText}>
+                {project.title.charAt(0)}
+              </span>
+            </div>
+          )}
         </div>
       )}
 
@@ -77,7 +101,7 @@ function ProjectCard({ project, onClick, className }: ProjectCardProps) {
         <h3 className={styles.title}>{project.title}</h3>
 
         {/* Key features */}
-        {project.keyFeatures.length > 0 && (
+        {showHighlights && project.keyFeatures.length > 0 && (
           <ul className={styles.features} aria-label="Key features">
             {project.keyFeatures.map((feature) => (
               <li key={feature} className={styles.feature}>
@@ -87,19 +111,22 @@ function ProjectCard({ project, onClick, className }: ProjectCardProps) {
           </ul>
         )}
 
-        <div className={styles.footer}>
-          <Button
-            variant="secondary"
-            size="sm"
-            rightIcon={<LuArrowRight aria-hidden="true" />}
-            onClick={(e) => {
-              e.stopPropagation();
-              onClick?.(project);
-            }}
-          >
-            Read Markdown
-          </Button>
-        </div>
+        {/* "Read Markdown" is a convenience — the whole card opens too */}
+        {showHighlights && (
+          <div className={styles.footer}>
+            <Button
+              variant="ghost"
+              size="sm"
+              rightIcon={<LuArrowRight aria-hidden="true" />}
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick?.(project);
+              }}
+            >
+              Read Markdown
+            </Button>
+          </div>
+        )}
       </div>
     </motion.article>
   );

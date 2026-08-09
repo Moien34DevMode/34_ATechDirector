@@ -3,7 +3,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3xl);
+  gap: var(--space-2xl);
   width: 100%;
   max-width: var(--max-width-content);
   margin: 0 auto;
@@ -36,6 +36,22 @@
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-tighter);
   color: var(--color-text-primary);
+}
+
+/* ── Body: content + options panel ───────────────────────────────────────── */
+
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2xl);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
 }
 
 /* ── Category sections ───────────────────────────────────────────────────── */
@@ -75,12 +91,189 @@
   border-radius: var(--radius-full);
 }
 
-/* ── Grid ───────────────────────────────────────────────────────────────── */
+.collapseBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.collapseBtn:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+.collapseIcon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform var(--transition-normal);
+}
+
+.collapseIconClosed {
+  transform: rotate(-90deg);
+}
+
+/* ── Grid ─────────────────────────────────────────────────────────────────
+   --grid-cols is set inline from the options panel (snapping column size). */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(var(--grid-cols, 3), 1fr);
   gap: var(--space-lg);
+}
+
+/* ── Options panel ───────────────────────────────────────────────────────── */
+
+.panel {
+  flex-shrink: 0;
+  width: 260px;
+  position: sticky;
+  top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.panelIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: var(--color-text-accent);
+}
+
+.panelTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.panelGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.panelGroupLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.optionLabel {
+  line-height: var(--leading-normal);
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  accent-color: var(--color-accent-primary);
+  cursor: pointer;
+}
+
+.optionSlider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.sliderWrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.slider {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--color-accent-primary);
+  cursor: pointer;
+}
+
+.sliderValue {
+  width: 1.5rem;
+  flex-shrink: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  text-align: center;
+}
+
+.panelActions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.panelActionBtn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: clamp(0.5rem, 1.1vw, var(--text-xs));
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.panelActionBtn:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+}
+
+.panelFooter {
+  display: flex;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 /* ── Modal ──────────────────────────────────────────────────────────────── */
@@ -137,7 +330,33 @@
   flex-shrink: 0;
 }
 
+/* ── Back to top ────────────────────────────────────────────────────────── */
+
+.backToTop {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.backToTopBtn {
+  width: 100%;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 1023px) {
+  .body {
+    flex-direction: column;
+  }
+
+  .panel {
+    width: 100%;
+    position: static;
+    order: -1;
+  }
+}
 
 @media (max-width: 767px) {
   .container {
