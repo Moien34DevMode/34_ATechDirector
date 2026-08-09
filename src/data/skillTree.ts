@@ -83,7 +83,6 @@ export const skillTree: SkillNode = node('skills', 'Skills', [
       node('skills.game.unreal-engine.metahuman', 'MetaHuman', [
         leaf('skills.game.unreal-engine.metahuman.creator', 'Creator'),
         leaf('skills.game.unreal-engine.metahuman.animator', 'Animator'),
-        leaf('skills.game.unreal-engine.metahuman.live-link', 'Live Link'),
         leaf('skills.game.unreal-engine.metahuman.dna-assets', 'DNA Assets'),
         leaf('skills.game.unreal-engine.metahuman.optimization', 'Optimization'),
       ]),
