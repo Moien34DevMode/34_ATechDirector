@@ -366,4 +366,8 @@
   .grid {
     grid-template-columns: 1fr;
   }
+
+  .optionSlider {
+    display: none;
+  }
 }
